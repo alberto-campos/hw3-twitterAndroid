@@ -1,0 +1,71 @@
+package com.codepath.apps.restclienttemplate.activities;
+
+import android.content.Intent;
+import android.os.Parcelable;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.codepath.apps.restclienttemplate.R;
+
+import java.io.Serializable;
+
+public class ComposeActivity extends AppCompatActivity implements Serializable {
+
+    private final int REQUEST_CODE = 1344;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_compose);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_compose, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void onSubmit(View v) {
+        Toast.makeText(getApplicationContext(), "onSubmit", Toast.LENGTH_SHORT).show();
+
+       EditText etName = (EditText) findViewById(R.id.etMessage);
+        // Prepare data intent
+        Intent data = new Intent();
+        // Pass relevant data back as a result
+        data.putExtra("username", etName.getText().toString());
+       // data.putExtra("username", "XOPMAC");
+       // data.putExtra("code", 200); // ints work too
+        // Activity finished ok, return the data
+        setResult(RESULT_OK, data); // set result code and bundle data for response
+        finish(); // closes the activity, pass data to parent
+    }
+
+    public void onCancel(View view) {
+        Toast.makeText(getApplicationContext(), "Canceling", Toast.LENGTH_SHORT).show();
+        setResult(RESULT_CANCELED);
+        this.finish();
+    }
+
+}

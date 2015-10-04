@@ -1,7 +1,9 @@
 package com.codepath.apps.restclienttemplate.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApplication;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 
 public class TimelineActivity extends AppCompatActivity {
 
+    private final int REQUEST_CODE = 1344;
     private TwitterClient client;
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
@@ -62,10 +66,46 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Toast.makeText(getApplicationContext(), "Hello world - on OptionsItemSelected in Timeline", Toast.LENGTH_SHORT).show();
+
+        switch (item.getItemId()) {
+            case (R.id.miCompose):
+                launchComposeView();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void launchComposeView() {
+        Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
+        i.putExtra("username", "xopmac");
+//        i.putExtra("code", REQUEST_CODE);
+        startActivityForResult(i, REQUEST_CODE);
+       // startActivity(i);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            // Extract name value from result extras
+            String name = data.getExtras().getString("username");
+           // int code = data.getExtras().getInt("code", 0);
+            // Toast the name to display temporarily on screen
+            Toast.makeText(this, "new Username: " + name, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.login, menu);
         return true;
     }
+
+
 
     private void populateTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
