@@ -2,4 +2,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+    <item
+        android:id="@+id/miProfile"
+        android:icon="@drawable/twitter"
+        app:showAsAction="ifRoom|withText"
+        android:title="Profile">
+    </item>
+    <item
+        android:id="@+id/miCompose"
+        android:icon="@drawable/tweetcompose"
+        app:showAsAction="ifRoom"
+        android:title="Compose">
+    </item>
 </menu>
