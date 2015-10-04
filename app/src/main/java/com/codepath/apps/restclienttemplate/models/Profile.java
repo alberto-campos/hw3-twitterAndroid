@@ -26,7 +26,7 @@ public class Profile {
     }
 
     public static Profile fromJSON(JSONObject json) {
-        Profile p = new Profile();
+        Profile p = new Profile(json);
         try {
             p.name = json.getString("name");
             p.uid = json.getLong("id");
@@ -38,5 +38,17 @@ public class Profile {
 
         return p;
     }
+
+    public  Profile (JSONObject json) {
+        try {
+            name = json.getString("name");
+            uid = json.getLong("id");
+            screenName = json.getString("screen_name");
+            profileImageUrl = json.getString("profile_image_url");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

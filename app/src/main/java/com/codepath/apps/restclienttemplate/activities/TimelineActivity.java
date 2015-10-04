@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.preference.PreferenceManager;
@@ -35,6 +36,10 @@ public class TimelineActivity extends AppCompatActivity {
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
     private ListView lvTweets;
+
+//    SharedPreferences appProfile = getApplication().getSharedPreferences("Profile", 0);
+//    SharedPreferences appSettings = PreferenceManager.getDefaultSharedPreferences(getApplication());
+//    SharedPreferences.Editor editor = appSettings.edit();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +86,6 @@ public class TimelineActivity extends AppCompatActivity {
 
     private void launchComposeView() {
         Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
-
-
 
         i.putExtra("username", "xopmac");
         i.putExtra("code", REQUEST_CODE);
@@ -138,10 +141,16 @@ public class TimelineActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
                 //super.onSuccess(statusCode, headers, json);
 
-                Profile p = new Profile();
-                p.fromJSON((json));
+               // Profile p = new Profile(json);
+                Profile p = new Profile(json);
+               // p.fromJSON((json));
                 Log.d("DEBUG: ", json.toString());
                 Log.d("DEBUG", p.getName() +" HOLA AMIGOS " + p.getScreenName());
+//                editor.putString("username", p.getName());
+//                editor.putString("screen_name", p.getScreenName());
+//                editor.putString("profile_image_url", p.getProfileImageUrl());
+//                editor.putLong("id", p.getUid());
+
             }
 
             // Failure
@@ -152,21 +161,4 @@ public class TimelineActivity extends AppCompatActivity {
         });
     } // end populateProfile
 
-//    private void populateProfileDELETE() {
-//        client.getMyProfile(new JsonHttpResponseHandler(){
-//            // Success
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-//                //super.onSuccess(statusCode, headers, response);
-//                Log.d("DEBUG: ", json.toString());
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                //super.onFailure(statusCode, headers, throwable, errorResponse);
-//                Log.d("ERROR: ", errorResponse.toString());
-//            }
-//        });
-//
-//    }
 }
