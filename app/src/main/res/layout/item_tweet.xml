@@ -16,8 +16,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/tvUserName"
+        android:text="TwitterUserName"
+        android:id="@+id/tvScreenName"
+        android:textColor="@android:color/holo_green_light"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivProfileImage"
         android:layout_toEndOf="@+id/ivProfileImage" />
@@ -27,7 +28,21 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/tvBody"
-        android:layout_alignBottom="@+id/ivProfileImage"
         android:layout_toRightOf="@+id/ivProfileImage"
-        android:layout_toEndOf="@+id/ivProfileImage" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tvScreenName"
+        android:layout_alignBottom="@+id/ivProfileImage"
+        android:maxLines="3"
+        android:singleLine="false"
+        android:ellipsize="end" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RealName"
+        android:id="@+id/tvRealName"
+        android:textColor="@android:color/black"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

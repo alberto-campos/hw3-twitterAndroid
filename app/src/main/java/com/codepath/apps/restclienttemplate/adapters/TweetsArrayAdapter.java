@@ -1,7 +1,6 @@
 package com.codepath.apps.restclienttemplate.adapters;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +34,12 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_tweet, parent, false);
         }
         ImageView ivProfileImage = (ImageView) convertView.findViewById(R.id.ivProfileImage);
-        TextView tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
+        TextView tvScreenName = (TextView) convertView.findViewById(R.id.tvScreenName);
+        TextView tvRealName = (TextView) convertView.findViewById(R.id.tvRealName);
         TextView tvBody = (TextView) convertView.findViewById(R.id.tvBody);
 
-        tvUserName.setText(tweet.getUser().getScreenName());
+        tvScreenName.setText("@" + tweet.getUser().getScreenName());
+        tvRealName.setText(tweet.getUser().getName());
         tvBody.setText(tweet.getBody());
         ivProfileImage.setImageResource(android.R.color.transparent);
         Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(ivProfileImage);
