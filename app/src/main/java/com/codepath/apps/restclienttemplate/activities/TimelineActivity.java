@@ -1,5 +1,8 @@
 package com.codepath.apps.restclienttemplate.activities;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,7 +24,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class TimelineActivity extends ActionBarActivity {
+public class TimelineActivity extends AppCompatActivity {
 
     private TwitterClient client;
     private ArrayList<Tweet> tweets;
@@ -33,6 +36,8 @@ public class TimelineActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
+        setupActionBar();
+
         lvTweets = (ListView) findViewById(R.id.lvTweets);
         // Create the array List
         tweets = new ArrayList<>();
@@ -43,6 +48,23 @@ public class TimelineActivity extends ActionBarActivity {
 
         client = TwitterApplication.getTwitterClient();
         populateTimeline();
+    }
+
+    private void setupActionBar() {
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Timeline");
+        // actionBar.setIcon(R.drawable.twittericon); TODO: Fix, icon looks HUGE
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        actionBar.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.login, menu);
+        return true;
     }
 
     private void populateTimeline() {

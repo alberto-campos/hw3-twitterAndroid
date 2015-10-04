@@ -1,13 +1,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
-
-    <item
+<!-- TODO: For later development, to make it look like current Twitter App -->
+    <!--item
         android:id="@+id/miProfile"
         android:icon="@drawable/twitter"
         app:showAsAction="ifRoom|withText"
         android:title="Profile">
-    </item>
+    </item-->
+    <!--item
+        android:id="@+id/miSearch"
+        android:icon="@drawable/searchtweet"
+        app:showAsAction="ifRoom"
+        android:title="Search">
+    </item-->
     <item
         android:id="@+id/miCompose"
         android:icon="@drawable/tweetcompose"
