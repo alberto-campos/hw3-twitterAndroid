@@ -50,11 +50,11 @@ public class ComposeActivity extends AppCompatActivity implements Serializable {
     public void onSubmit(View v) {
         Toast.makeText(getApplicationContext(), "onSubmit", Toast.LENGTH_SHORT).show();
 
-       EditText etName = (EditText) findViewById(R.id.etMessage);
+       EditText etMessage = (EditText) findViewById(R.id.etMessage);
         // Prepare data intent
         Intent data = new Intent();
         // Pass relevant data back as a result
-        data.putExtra("username", etName.getText().toString());
+        data.putExtra("message", etMessage.getText().toString());
        // data.putExtra("username", "XOPMAC");
        // data.putExtra("code", 200); // ints work too
         // Activity finished ok, return the data

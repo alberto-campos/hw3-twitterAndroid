@@ -5,6 +5,7 @@ import org.scribe.builder.api.FlickrApi;
 import org.scribe.builder.api.TwitterApi;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.webkit.HttpAuthHandler;
 
 import com.codepath.oauth.OAuthBaseClient;
@@ -49,8 +50,15 @@ public class TwitterClient extends OAuthBaseClient {
 		getClient().get(apiUrl, params, handler);
 	}
 
-    // Compose tweet
+	// get myProfile
+	public void getMyProfile(AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("account/verify_credentials.json");
 
+		// Execute
+		getClient().get(apiUrl, handler);
+	}
+
+    // Compose tweet
     public void composeTweet() {
 
     }

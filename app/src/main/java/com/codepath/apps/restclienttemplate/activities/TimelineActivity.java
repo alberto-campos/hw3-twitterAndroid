@@ -18,6 +18,7 @@ import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApplication;
 import com.codepath.apps.restclienttemplate.TwitterClient;
 import com.codepath.apps.restclienttemplate.adapters.TweetsArrayAdapter;
+import com.codepath.apps.restclienttemplate.models.Profile;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -52,6 +53,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApplication.getTwitterClient();
         populateTimeline();
+        populateProfile();
     }
 
     private void setupActionBar() {
@@ -68,8 +70,6 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Toast.makeText(getApplicationContext(), "Hello world - on OptionsItemSelected in Timeline", Toast.LENGTH_SHORT).show();
-
         switch (item.getItemId()) {
             case (R.id.miCompose):
                 launchComposeView();
@@ -81,8 +81,11 @@ public class TimelineActivity extends AppCompatActivity {
 
     private void launchComposeView() {
         Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
+
+
+
         i.putExtra("username", "xopmac");
-//        i.putExtra("code", REQUEST_CODE);
+        i.putExtra("code", REQUEST_CODE);
         startActivityForResult(i, REQUEST_CODE);
        // startActivity(i);
     }
@@ -92,10 +95,10 @@ public class TimelineActivity extends AppCompatActivity {
         //super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             // Extract name value from result extras
-            String name = data.getExtras().getString("username");
+            String message = data.getExtras().getString("message");
            // int code = data.getExtras().getInt("code", 0);
             // Toast the name to display temporarily on screen
-            Toast.makeText(this, "new Username: " + name, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "New message: " + message, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -105,14 +108,12 @@ public class TimelineActivity extends AppCompatActivity {
         return true;
     }
 
-
-
     private void populateTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             // Success
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                Log.d("SUCCESS: ",json.toString());
+                Log.d("SUCCESS: ", json.toString());
                 // JSON
                 // deserialize JSON
                 // Create models and add them into the adapter
@@ -127,4 +128,45 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
     } // end populateTimeline
+
+
+    private void populateProfile() {
+        client.getMyProfile(new JsonHttpResponseHandler() {
+
+            // Success
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
+                //super.onSuccess(statusCode, headers, json);
+
+                Profile p = new Profile();
+                p.fromJSON((json));
+                Log.d("DEBUG: ", json.toString());
+                Log.d("DEBUG", p.getName() +" HOLA AMIGOS " + p.getScreenName());
+            }
+
+            // Failure
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("ERROR: ", errorResponse.toString());
+            }
+        });
+    } // end populateProfile
+
+//    private void populateProfileDELETE() {
+//        client.getMyProfile(new JsonHttpResponseHandler(){
+//            // Success
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+//                //super.onSuccess(statusCode, headers, response);
+//                Log.d("DEBUG: ", json.toString());
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                //super.onFailure(statusCode, headers, throwable, errorResponse);
+//                Log.d("ERROR: ", errorResponse.toString());
+//            }
+//        });
+//
+//    }
 }
