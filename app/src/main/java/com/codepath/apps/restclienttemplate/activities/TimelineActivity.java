@@ -36,10 +36,12 @@ public class TimelineActivity extends AppCompatActivity {
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
     private ListView lvTweets;
+    private Profile usrProf;
+
 
 //    SharedPreferences appProfile = getApplication().getSharedPreferences("Profile", 0);
-//    SharedPreferences appSettings = PreferenceManager.getDefaultSharedPreferences(getApplication());
-//    SharedPreferences.Editor editor = appSettings.edit();
+   // SharedPreferences appSettings = PreferenceManager.getDefaultSharedPreferences(getApplication());
+   // SharedPreferences.Editor editor = appSettings.edit();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +89,11 @@ public class TimelineActivity extends AppCompatActivity {
     private void launchComposeView() {
         Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
 
-        i.putExtra("username", "xopmac");
         i.putExtra("code", REQUEST_CODE);
+        i.putExtra("username", usrProf.getName());
+        i.putExtra("screenname", usrProf.getScreenName());
+        i.putExtra("url", usrProf.getProfileImageUrl());
+
         startActivityForResult(i, REQUEST_CODE);
        // startActivity(i);
     }
@@ -146,6 +151,8 @@ public class TimelineActivity extends AppCompatActivity {
                // p.fromJSON((json));
                 Log.d("DEBUG: ", json.toString());
                 Log.d("DEBUG", p.getName() +" HOLA AMIGOS " + p.getScreenName());
+                usrProf = p;
+
 //                editor.putString("username", p.getName());
 //                editor.putString("screen_name", p.getScreenName());
 //                editor.putString("profile_image_url", p.getProfileImageUrl());

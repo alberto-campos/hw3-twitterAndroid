@@ -11,5 +11,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="str_tweet">Tweet</string>
+    <string name="str_name">Name</string>
+    <string name="str_screenname">Screenname</string>
 
 </resources>

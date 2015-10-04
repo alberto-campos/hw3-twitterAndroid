@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate.activities;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
@@ -23,6 +26,29 @@ public class ComposeActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
+
+        populateUserProfile();
+
+
+    }
+
+    private void populateUserProfile() {
+        TextView tvName;
+        tvName = (TextView) findViewById(R.id.tvComposeName);
+        tvName.setText(getIntent().getStringExtra("username"));
+
+        TextView tvScreenname;
+        tvScreenname = (TextView) findViewById(R.id.tvCompuseScreenname);
+        tvScreenname.setText(getIntent().getStringExtra("screenname"));
+
+
+        ImageView tvProfileImage;
+        tvProfileImage = (ImageView) findViewById(R.id.ivComposeProfile);
+        //tvProfileImage.setImageBitmap("");
+
+                //getIntent().getStringExtra("username");
+
+        Toast.makeText(getApplicationContext(), getIntent().getStringExtra("url"), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -50,7 +76,7 @@ public class ComposeActivity extends AppCompatActivity implements Serializable {
     public void onSubmit(View v) {
         Toast.makeText(getApplicationContext(), "onSubmit", Toast.LENGTH_SHORT).show();
 
-       EditText etMessage = (EditText) findViewById(R.id.etMessage);
+       EditText etMessage = (EditText) findViewById(R.id.etComposeMessage);
         // Prepare data intent
         Intent data = new Intent();
         // Pass relevant data back as a result

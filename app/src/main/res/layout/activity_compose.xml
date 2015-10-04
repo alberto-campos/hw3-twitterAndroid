@@ -16,12 +16,13 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/etMessage"
-            android:layout_alignParentTop="true"
+            android:id="@+id/etComposeMessage"
+            android:layout_below="@+id/ivComposeProfile"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/btnTweet" />
 
         <Button
             android:layout_width="wrap_content"
@@ -32,5 +33,32 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:onClick="onSubmit" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/ivComposeProfile"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="#ffef51" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_name"
+            android:id="@+id/tvComposeName"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/ivComposeProfile"
+            android:layout_toEndOf="@+id/ivComposeProfile" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_screenname"
+            android:id="@+id/tvCompuseScreenname"
+            android:layout_below="@+id/tvComposeName"
+            android:layout_toRightOf="@+id/ivComposeProfile"
+            android:layout_toEndOf="@+id/ivComposeProfile" />
     </RelativeLayout>
 </RelativeLayout>
