@@ -126,8 +126,10 @@ public class TimelineActivity extends AppCompatActivity {
         return true;
     }
 
-    public void displayNewTweets() {
+    public void displayNewTweets(String msg) {
         populateTimeline();
+        aTweets.add(Tweet.fromMsg(msg));
+        aTweets.notifyDataSetChanged();
         lvTweets.notifyAll();
     }
 
@@ -177,12 +179,12 @@ public class TimelineActivity extends AppCompatActivity {
     } // end populateProfile
 
 
-    private void onComposeTweet(String message) {
+    private void onComposeTweet(final String message) {
         client.composeTweet(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 Log.d("SUCCESS: ", json.toString());
-                displayNewTweets();
+                displayNewTweets(message);
                 //super.onSuccess(statusCode, headers, response);
             }
 

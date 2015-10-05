@@ -75,6 +75,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Tweet {
     // List out all the attributes
@@ -120,6 +121,15 @@ public class Tweet {
         return tweet;
     }
 
+
+    public static Tweet fromMsg(String msg) {
+        Tweet tweet = new Tweet();
+        Date date = new Date();
+
+        tweet.body = msg;
+        tweet.createdAt = date.toString();
+        return tweet;
+    }
 
     public static ArrayList<Tweet> fromJSONArray (JSONArray jsonArray) {
         ArrayList<Tweet> tweets = new ArrayList<>();
