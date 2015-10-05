@@ -32,7 +32,7 @@
             android:theme="@style/Theme.AppCompat.Light" >
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:icon="@drawable/tweetcompose"
             android:label="@string/login_page"
             android:theme="@style/Theme.AppCompat.Light" >

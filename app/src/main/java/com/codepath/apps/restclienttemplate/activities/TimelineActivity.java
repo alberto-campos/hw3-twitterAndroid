@@ -18,6 +18,7 @@ import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApplication;
 import com.codepath.apps.restclienttemplate.TwitterClient;
 import com.codepath.apps.restclienttemplate.adapters.TweetsArrayAdapter;
+import com.codepath.apps.restclienttemplate.helper.EndlessScrollListener;
 import com.codepath.apps.restclienttemplate.models.Profile;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -58,8 +59,21 @@ public class TimelineActivity extends AppCompatActivity {
         lvTweets.setAdapter(aTweets);
 
         client = TwitterApplication.getTwitterClient();
+
+        lvTweets.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public boolean onLoadMore(int page, int totalItemsCount) {
+                customLoadMoreTweets(page);
+                return true;
+            }
+        });
+
         populateTimeline();
         populateProfile();
+    }
+
+    public void customLoadMoreTweets(int page) {
+        populateTimeline();
     }
 
     private void setupActionBar() {
@@ -112,12 +126,19 @@ public class TimelineActivity extends AppCompatActivity {
         return true;
     }
 
+    public void displayNewTweets() {
+        populateTimeline();
+        lvTweets.notifyAll();
+    }
+
     private void populateTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             // Success
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                aTweets.clear();
                 aTweets.addAll(Tweet.fromJSONArray(json));
+                aTweets.notifyDataSetChanged();
             }
 
             // Failure
@@ -161,6 +182,7 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 Log.d("SUCCESS: ", json.toString());
+                displayNewTweets();
                 //super.onSuccess(statusCode, headers, response);
             }
 
