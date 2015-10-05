@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 
@@ -39,16 +40,15 @@ public class ComposeActivity extends AppCompatActivity implements Serializable {
 
         TextView tvScreenname;
         tvScreenname = (TextView) findViewById(R.id.tvCompuseScreenname);
-        tvScreenname.setText(getIntent().getStringExtra("screenname"));
+        tvScreenname.setText("@" + getIntent().getStringExtra("screenname"));
 
 
         ImageView tvProfileImage;
         tvProfileImage = (ImageView) findViewById(R.id.ivComposeProfile);
+        Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("url")).into(tvProfileImage);
         //tvProfileImage.setImageBitmap("");
 
-                //getIntent().getStringExtra("username");
-
-        Toast.makeText(getApplicationContext(), getIntent().getStringExtra("url"), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(), getIntent().getStringExtra("url"), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -81,7 +81,6 @@ public class ComposeActivity extends AppCompatActivity implements Serializable {
         Intent data = new Intent();
         // Pass relevant data back as a result
         data.putExtra("message", etMessage.getText().toString());
-       // data.putExtra("username", "XOPMAC");
        // data.putExtra("code", 200); // ints work too
         // Activity finished ok, return the data
         setResult(RESULT_OK, data); // set result code and bundle data for response
