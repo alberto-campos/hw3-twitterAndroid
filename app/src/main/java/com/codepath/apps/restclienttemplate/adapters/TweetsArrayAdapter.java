@@ -12,10 +12,19 @@ import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.squareup.picasso.Picasso;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
 
 // Takes Tweet objects and converts them into Views
 public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
+
+
+    static final long ONE_MINUTE_IN_MILLIS=60000;//millisecs
+
      public TweetsArrayAdapter(Context context, List<Tweet> tweets) {
         super(context,android.R.layout.simple_list_item_1, tweets);
     }
@@ -36,10 +45,20 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         ImageView ivProfileImage = (ImageView) convertView.findViewById(R.id.ivProfileImage);
         TextView tvScreenName = (TextView) convertView.findViewById(R.id.tvScreenName);
         TextView tvRealName = (TextView) convertView.findViewById(R.id.tvRealName);
+        TextView tvTimestamp = (TextView) convertView.findViewById(R.id.tvTime);
         TextView tvBody = (TextView) convertView.findViewById(R.id.tvBody);
+        PrettyTime p = new PrettyTime(new Locale("en"));
 
         tvScreenName.setText("@" + tweet.getUser().getScreenName());
         tvRealName.setText(tweet.getUser().getName());
+
+        Date myDate = new java.util.Date(tweet.getCreatedAt());
+
+        long t=myDate.getTime();
+        Date afterRemoving10Mins=new Date(t - (25 * ONE_MINUTE_IN_MILLIS));
+
+        tvTimestamp.setText(p.format(afterRemoving10Mins));
+
         tvBody.setText(tweet.getBody());
         ivProfileImage.setImageResource(android.R.color.transparent);
         Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(ivProfileImage);
