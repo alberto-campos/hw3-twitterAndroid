@@ -106,7 +106,10 @@ public class TimelineActivity extends AppCompatActivity {
             String message = data.getExtras().getString("message");
            // int code = data.getExtras().getInt("code", 0);
             // Toast the name to display temporarily on screen
-            Toast.makeText(this, "New message: " + message, Toast.LENGTH_SHORT).show();
+            onComposeTweet(message);
+           // Toast.makeText(this, "New message: " + message, Toast.LENGTH_SHORT).show();
+
+
         }
     }
 
@@ -146,11 +149,7 @@ public class TimelineActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
                 //super.onSuccess(statusCode, headers, json);
 
-               // Profile p = new Profile(json);
                 Profile p = new Profile(json);
-               // p.fromJSON((json));
-                Log.d("DEBUG: ", json.toString());
-                Log.d("DEBUG", p.getName() +" HOLA AMIGOS " + p.getScreenName());
                 usrProf = p;
 
 //                editor.putString("username", p.getName());
@@ -167,5 +166,22 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
     } // end populateProfile
+
+
+    private void onComposeTweet(String message) {
+        client.composeTweet(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                Log.d("SUCCESS: ", json.toString());
+                //super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("ERROR: ", errorResponse.toString());
+               // super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        }, message);
+    }
 
 }
