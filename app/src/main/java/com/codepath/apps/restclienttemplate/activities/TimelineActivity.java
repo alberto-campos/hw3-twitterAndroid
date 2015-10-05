@@ -79,8 +79,8 @@ public class TimelineActivity extends AppCompatActivity {
     private void setupActionBar() {
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Timeline");
-        // actionBar.setIcon(R.drawable.twittericon); TODO: Fix, icon looks HUGE
+        actionBar.setTitle(R.string.str_home);
+        actionBar.setIcon(R.drawable.twittericon); // TODO: Fix, icon looks HUGE
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
