@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="wrap_content" android:layout_height="fill_parent"
+    android:weightSum="1">
 
     <ImageView
         android:layout_width="50dp"
@@ -18,24 +19,11 @@
         android:layout_height="wrap_content"
         android:text="TwitterUserName"
         android:id="@+id/tvScreenName"
-        android:textColor="@android:color/holo_green_light"
+        android:textColor="@android:color/holo_blue_dark"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivProfileImage"
         android:layout_toEndOf="@+id/ivProfileImage" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/tvBody"
-        android:layout_toRightOf="@+id/ivProfileImage"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/tvScreenName"
-        android:layout_alignBottom="@+id/ivProfileImage"
-        android:maxLines="3"
-        android:singleLine="false"
-        android:ellipsize="end" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,8 +31,34 @@
         android:text="RealName"
         android:id="@+id/tvRealName"
         android:textColor="@android:color/black"
+        android:layout_toRightOf="@+id/tvScreenName"
+        android:layout_marginLeft="41dp"
+        android:layout_marginStart="41dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/tvBody"
+        android:layout_alignEnd="@+id/tvBody" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Tweet Body"
+        android:id="@+id/tvBody"
+        android:layout_toRightOf="@+id/ivProfileImage"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tvScreenName"
+        android:textSize="16dp"
+        android:maxLines="5"
+        android:typeface="sans"
+
+        android:autoLink="all"
+        android:linksClickable="true"
+        android:textColorHighlight="#7C82D2"
+        android:textColorHint="#2DC942"
+        android:textColorLink="#8DE67F"
+
+        android:singleLine="false"
+        android:ellipsize="end" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,5 +66,7 @@
         android:id="@+id/tvTime"
         android:layout_above="@+id/tvBody"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true" />
+
 </RelativeLayout>

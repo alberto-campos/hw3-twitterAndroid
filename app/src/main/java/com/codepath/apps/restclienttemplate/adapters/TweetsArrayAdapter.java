@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate.adapters;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,8 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         TextView tvRealName = (TextView) convertView.findViewById(R.id.tvRealName);
         TextView tvTimestamp = (TextView) convertView.findViewById(R.id.tvTime);
         TextView tvBody = (TextView) convertView.findViewById(R.id.tvBody);
+
+
         PrettyTime p = new PrettyTime(new Locale("en"));
 
         tvScreenName.setText("@" + tweet.getUser().getScreenName());
@@ -55,11 +58,11 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         Date myDate = new java.util.Date(tweet.getCreatedAt());
 
         long t=myDate.getTime();
-        Date afterRemoving10Mins=new Date(t - (25 * ONE_MINUTE_IN_MILLIS));
+        Date afterRemoving10Mins=new Date(t - (55 * ONE_MINUTE_IN_MILLIS));
 
         tvTimestamp.setText(p.format(afterRemoving10Mins));
 
-        tvBody.setText(tweet.getBody());
+        tvBody.setText(Html.fromHtml(tweet.getBody()));
         ivProfileImage.setImageResource(android.R.color.transparent);
         Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(ivProfileImage);
 

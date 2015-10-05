@@ -127,10 +127,12 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     public void displayNewTweets(String msg) {
-        populateTimeline();
+        aTweets.clear();
         aTweets.add(Tweet.fromMsg(msg));
         aTweets.notifyDataSetChanged();
         lvTweets.notifyAll();
+
+        populateTimeline();
     }
 
     private void populateTimeline() {

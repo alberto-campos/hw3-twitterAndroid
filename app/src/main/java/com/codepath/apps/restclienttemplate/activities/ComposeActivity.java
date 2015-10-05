@@ -46,9 +46,7 @@ public class ComposeActivity extends AppCompatActivity implements Serializable {
         ImageView tvProfileImage;
         tvProfileImage = (ImageView) findViewById(R.id.ivComposeProfile);
         Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("url")).into(tvProfileImage);
-        //tvProfileImage.setImageBitmap("");
 
-       // Toast.makeText(getApplicationContext(), getIntent().getStringExtra("url"), Toast.LENGTH_SHORT).show();
     }
 
     @Override
