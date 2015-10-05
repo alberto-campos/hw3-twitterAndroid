@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApplication;
@@ -95,7 +94,6 @@ public class TimelineActivity extends AppCompatActivity {
         i.putExtra("url", usrProf.getProfileImageUrl());
 
         startActivityForResult(i, REQUEST_CODE);
-       // startActivity(i);
     }
 
     @Override
@@ -104,12 +102,7 @@ public class TimelineActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             // Extract name value from result extras
             String message = data.getExtras().getString("message");
-           // int code = data.getExtras().getInt("code", 0);
-            // Toast the name to display temporarily on screen
             onComposeTweet(message);
-           // Toast.makeText(this, "New message: " + message, Toast.LENGTH_SHORT).show();
-
-
         }
     }
 
@@ -124,11 +117,6 @@ public class TimelineActivity extends AppCompatActivity {
             // Success
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                Log.d("SUCCESS: ", json.toString());
-                // JSON
-                // deserialize JSON
-                // Create models and add them into the adapter
-                // Display into ListView
                 aTweets.addAll(Tweet.fromJSONArray(json));
             }
 

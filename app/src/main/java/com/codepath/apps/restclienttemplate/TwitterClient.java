@@ -35,9 +35,6 @@ public class TwitterClient extends OAuthBaseClient {
 		super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
 	}
 
-	// CHANGE THIS
-	// DEFINE METHODS for different API endpoints here
-
 	public void getHomeTimeline(AsyncHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 
@@ -53,7 +50,6 @@ public class TwitterClient extends OAuthBaseClient {
 	// get myProfile
 	public void getMyProfile(AsyncHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("account/verify_credentials.json");
-
 		// Execute
 		getClient().get(apiUrl, handler);
 	}
@@ -65,8 +61,8 @@ public class TwitterClient extends OAuthBaseClient {
 		// Specify the params
 		RequestParams params = new RequestParams();
 		params.put("status", msg);
+
 		// Execute
-	//	getClient().get(apiUrl, params, handler);
 		getClient().post(apiUrl, params, handler);
 
     }
