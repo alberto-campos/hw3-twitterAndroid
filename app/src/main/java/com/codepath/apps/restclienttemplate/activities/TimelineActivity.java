@@ -18,6 +18,7 @@ import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApplication;
 import com.codepath.apps.restclienttemplate.TwitterClient;
 import com.codepath.apps.restclienttemplate.adapters.TweetsArrayAdapter;
+import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
 import com.codepath.apps.restclienttemplate.helper.EndlessScrollListener;
 import com.codepath.apps.restclienttemplate.models.Profile;
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -33,9 +34,9 @@ public class TimelineActivity extends AppCompatActivity {
 
     private final int REQUEST_CODE = 1344;
     private TwitterClient client;
-    private ArrayList<Tweet> tweets;
-    private TweetsArrayAdapter aTweets;
-    private ListView lvTweets;
+
+    private TweetsListFragment fragmentTweetsList;
+
     private Profile usrProf;
 
 
@@ -50,31 +51,22 @@ public class TimelineActivity extends AppCompatActivity {
 
         setupActionBar();
 
-        lvTweets = (ListView) findViewById(R.id.lvTweets);
-        // Create the array List
-        tweets = new ArrayList<>();
-        // Construct the adapter from Dsource
-        aTweets = new TweetsArrayAdapter(this, tweets);
-        // Connect adapter to listView
-        lvTweets.setAdapter(aTweets);
+
 
         client = TwitterApplication.getTwitterClient();
 
-        lvTweets.setOnScrollListener(new EndlessScrollListener() {
-            @Override
-            public boolean onLoadMore(int page, int totalItemsCount) {
-                customLoadMoreTweets(page);
-                return true;
-            }
-        });
+
 
         populateTimeline();
+
+        if (savedInstanceState == null) {
+            // Access the fragment
+            fragmentTweetsList = (TweetsListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
+        }
         populateProfile();
     }
 
-    public void customLoadMoreTweets(int page) {
-        populateTimeline();
-    }
+
 
     private void setupActionBar() {
 
@@ -127,10 +119,10 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     public void displayNewTweets(String msg) {
-        aTweets.clear();
-        aTweets.add(Tweet.fromMsg(msg));
-        aTweets.notifyDataSetChanged();
-        lvTweets.notifyAll();
+//        aTweets.clear();
+//        aTweets.add(Tweet.fromMsg(msg));
+//        aTweets.notifyDataSetChanged();
+//        lvTweets.notifyAll();
 
         populateTimeline();
     }
@@ -140,9 +132,9 @@ public class TimelineActivity extends AppCompatActivity {
             // Success
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                aTweets.clear();
-                aTweets.addAll(Tweet.fromJSONArray(json));
-                aTweets.notifyDataSetChanged();
+              //  aTweets.clear();
+                fragmentTweetsList.addAll(Tweet.fromJSONArray(json));
+               // aTweets.notifyDataSetChanged();
             }
 
             // Failure
