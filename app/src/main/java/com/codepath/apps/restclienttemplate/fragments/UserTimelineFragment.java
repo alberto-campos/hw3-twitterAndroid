@@ -12,20 +12,29 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class MentionsTimelineFragment extends TweetsListFragment {
-
+public class UserTimelineFragment extends TweetsListFragment {
     private TwitterClient client;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = TwitterApplication.getTwitterClient();
-        populateMentionsTimeline();
+        populateProfile();
+    }
+
+    public static UserTimelineFragment newInstance(String screen_name) {
+        UserTimelineFragment userFragment = new UserTimelineFragment();
+        Bundle args = new Bundle();
+        args.putString("screen_name", screen_name);
+        userFragment.setArguments(args);
+        return userFragment;
     }
 
 
-    private void populateMentionsTimeline() {
-        client.getMentionsTimeline(new JsonHttpResponseHandler() {
+    private void populateProfile() {
+        String screenName = getArguments().getString("screen_name");
+
+        client.getUserTimeline( new JsonHttpResponseHandler() {
 
             // Success
             @Override
