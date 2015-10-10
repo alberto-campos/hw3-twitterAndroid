@@ -193,6 +193,11 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
 
+    public void onCompose(MenuItem item) {
+        launchComposeView();
+    }
+
+
     public void onProfileView(MenuItem item) {
         // Launch the profile view
         Intent i = new Intent(this, ProfileActivity.class);

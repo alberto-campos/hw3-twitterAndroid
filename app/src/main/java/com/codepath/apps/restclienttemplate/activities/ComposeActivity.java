@@ -24,10 +24,7 @@ public class ComposeActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
-
         populateUserProfile();
-
-
     }
 
     private void populateUserProfile() {
@@ -39,34 +36,24 @@ public class ComposeActivity extends AppCompatActivity implements Serializable {
         tvScreenname = (TextView) findViewById(R.id.tvCompuseScreenname);
         tvScreenname.setText("@" + getIntent().getStringExtra("screenname"));
 
-
         ImageView tvProfileImage;
         tvProfileImage = (ImageView) findViewById(R.id.ivComposeProfile);
         Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("url")).into(tvProfileImage);
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_profile, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_profile, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        return super.onOptionsItemSelected(item);
+//    }
 
     public void onSubmit(View v) {
         Toast.makeText(getApplicationContext(), "onSubmit", Toast.LENGTH_SHORT).show();
