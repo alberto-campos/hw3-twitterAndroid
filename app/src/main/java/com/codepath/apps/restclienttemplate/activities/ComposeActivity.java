@@ -1,9 +1,6 @@
 package com.codepath.apps.restclienttemplate.activities;
 
 import android.content.Intent;
-import android.media.Image;
-import android.os.Parcelable;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -52,7 +49,7 @@ public class ComposeActivity extends AppCompatActivity implements Serializable {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_compose, menu);
+        getMenuInflater().inflate(R.menu.menu_profile, menu);
         return true;
     }
 
@@ -64,9 +61,9 @@ public class ComposeActivity extends AppCompatActivity implements Serializable {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

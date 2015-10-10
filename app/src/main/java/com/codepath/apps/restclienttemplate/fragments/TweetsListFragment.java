@@ -60,7 +60,7 @@ public class TweetsListFragment extends Fragment {
             }
         });
 
-        setupActionBar();
+      //  setupActionBar();
 
         return v;
     }
@@ -97,10 +97,5 @@ public class TweetsListFragment extends Fragment {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         actionBar.show();
     }
-
-
-
-
-
 
 }

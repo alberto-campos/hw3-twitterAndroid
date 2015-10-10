@@ -1,41 +1,29 @@
 package com.codepath.apps.restclienttemplate.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApplication;
 import com.codepath.apps.restclienttemplate.TwitterClient;
-import com.codepath.apps.restclienttemplate.adapters.TweetsArrayAdapter;
 import com.codepath.apps.restclienttemplate.fragments.HomeTimelineFragment;
 import com.codepath.apps.restclienttemplate.fragments.MentionsTimelineFragment;
-import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
-import com.codepath.apps.restclienttemplate.helper.EndlessScrollListener;
 import com.codepath.apps.restclienttemplate.models.Profile;
-import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class TimelineActivity extends AppCompatActivity {
 
@@ -64,13 +52,17 @@ public class TimelineActivity extends AppCompatActivity {
 
         ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
         vpPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager()));
+        PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+
+        tabStrip.setViewPager(vpPager);
 
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.login, menu);
+        // getMenuInflater().inflate(R.menu.login, menu);
+        getMenuInflater().inflate(R.menu.menu_profile, menu);
         return true;
     }
 
@@ -173,7 +165,7 @@ public class TimelineActivity extends AppCompatActivity {
 
 
     public class TweetsPagerAdapter extends FragmentPagerAdapter {
-        private String tabItems[] = {String.valueOf(R.string.timeline), String.valueOf(R.string.mentions)};
+        private String tabItems[] = { "Home", "Mentions" };
 
         public TweetsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -198,6 +190,13 @@ public class TimelineActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return tabItems[position];
         }
+    }
+
+
+    public void onProfileView(MenuItem item) {
+        // Launch the profile view
+        Intent i = new Intent(this, ProfileActivity.class);
+        startActivity(i);
     }
 
 }

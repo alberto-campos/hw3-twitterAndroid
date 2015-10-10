@@ -33,7 +33,7 @@
         </activity>
         <activity
             android:name=".activities.LoginActivity"
-            android:icon="@drawable/tweetcompose"
+            android:icon="@mipmap/ic_twitter"
             android:label="@string/login_page"
             android:theme="@style/Theme.AppCompat.Light" >
             <intent-filter>
@@ -55,6 +55,8 @@
         <activity
             android:name=".activities.ComposeActivity"
             android:label="@string/str_compose" >
+        </activity>
+        <activity android:name=".activities.ProfileActivity" >
         </activity>
     </application>
 
