@@ -33,11 +33,8 @@ import java.util.ArrayList;
 public class TimelineActivity extends AppCompatActivity {
 
     private final int REQUEST_CODE = 1344;
-    private TwitterClient client;
 
-    private TweetsListFragment fragmentTweetsList;
-
-    private Profile usrProf;
+   // private TweetsListFragment fragmentTweetsList;
 
 
 //    SharedPreferences appProfile = getApplication().getSharedPreferences("Profile", 0);
@@ -48,24 +45,29 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-
         setupActionBar();
 
-
-
-        client = TwitterApplication.getTwitterClient();
-
-
-
-        populateTimeline();
-
-        if (savedInstanceState == null) {
-            // Access the fragment
-            fragmentTweetsList = (TweetsListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
-        }
-        populateProfile();
+      //  populateProfile();
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.login, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case (R.id.miCompose):
+               // launchComposeView();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
     private void setupActionBar() {
@@ -79,28 +81,6 @@ public class TimelineActivity extends AppCompatActivity {
         actionBar.show();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case (R.id.miCompose):
-                launchComposeView();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void launchComposeView() {
-        Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
-
-        i.putExtra("code", REQUEST_CODE);
-        i.putExtra("username", usrProf.getName());
-        i.putExtra("screenname", usrProf.getScreenName());
-        i.putExtra("url", usrProf.getProfileImageUrl());
-
-        startActivityForResult(i, REQUEST_CODE);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -108,86 +88,9 @@ public class TimelineActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             // Extract name value from result extras
             String message = data.getExtras().getString("message");
-            onComposeTweet(message);
+           // onComposeTweet(message);
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.login, menu);
-        return true;
-    }
-
-    public void displayNewTweets(String msg) {
-//        aTweets.clear();
-//        aTweets.add(Tweet.fromMsg(msg));
-//        aTweets.notifyDataSetChanged();
-//        lvTweets.notifyAll();
-
-        populateTimeline();
-    }
-
-    private void populateTimeline() {
-        client.getHomeTimeline(new JsonHttpResponseHandler() {
-            // Success
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-              //  aTweets.clear();
-                fragmentTweetsList.addAll(Tweet.fromJSONArray(json));
-               // aTweets.notifyDataSetChanged();
-            }
-
-            // Failure
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.d("ERROR: ", errorResponse.toString());
-            }
-        });
-    } // end populateTimeline
-
-
-    private void populateProfile() {
-        client.getMyProfile(new JsonHttpResponseHandler() {
-
-            // Success
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
-                //super.onSuccess(statusCode, headers, json);
-
-                Profile p = new Profile(json);
-                usrProf = p;
-
-//                editor.putString("username", p.getName());
-//                editor.putString("screen_name", p.getScreenName());
-//                editor.putString("profile_image_url", p.getProfileImageUrl());
-//                editor.putLong("id", p.getUid());
-
-            }
-
-            // Failure
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.d("ERROR: ", errorResponse.toString());
-            }
-        });
-    } // end populateProfile
-
-
-    private void onComposeTweet(final String message) {
-        client.composeTweet(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                Log.d("SUCCESS: ", json.toString());
-                displayNewTweets(message);
-                //super.onSuccess(statusCode, headers, response);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.d("ERROR: ", errorResponse.toString());
-               // super.onFailure(statusCode, headers, throwable, errorResponse);
-            }
-        }, message);
-    }
 
 }
