@@ -8,19 +8,79 @@
     tools:context="com.codepath.apps.restclienttemplate.activities.ProfileActivity">
 
 
+<!--  TODO: Make the following its own fragment -->
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/rlUserHeader"></RelativeLayout>
+        android:id="@+id/rlUserHeader">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/ivProfileImage"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="#f80a0a" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_name"
+            android:id="@+id/tvName"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/ivProfileImage"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_tweet"
+            android:id="@+id/tvTagline"
+            android:layout_below="@+id/tvName"
+            android:layout_toRightOf="@+id/ivProfileImage"
+            android:layout_toEndOf="@+id/ivProfileImage"
+            android:layout_marginLeft="10dp" />
+    </RelativeLayout>
+
+<LinearLayout
+    android:id="@+id/llCounts"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_below="@+id/rlUserHeader"
+    android:orientation="horizontal">
+
+
+</LinearLayout>
+
 
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/rlUserHeader"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/flContainer"></FrameLayout>
+        android:id="@+id/flContainer"
+        android:layout_below="@+id/llCounts"></FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_retrieving"
+        android:id="@+id/tvFollowers"
+        android:layout_below="@+id/rlUserHeader"
+        android:layout_alignRight="@+id/rlUserHeader"
+        android:layout_alignEnd="@+id/rlUserHeader" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_retrieving"
+        android:id="@+id/tvFollowing"
+        android:layout_below="@+id/rlUserHeader"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
