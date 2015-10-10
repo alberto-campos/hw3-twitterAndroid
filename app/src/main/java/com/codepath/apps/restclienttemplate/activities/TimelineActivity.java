@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApplication;
@@ -32,9 +33,16 @@ import java.util.ArrayList;
 
 public class TimelineActivity extends AppCompatActivity {
 
-    private final int REQUEST_CODE = 1344;
 
-   // private TweetsListFragment fragmentTweetsList;
+  //  private final int REQUEST_CODE = 1344;
+  private static final int RESULT_OK = 1;
+    private final int REQUEST_CODE = 1344;
+    private Profile usrProf;
+
+    private TwitterClient client;
+
+
+    // private TweetsListFragment fragmentTweetsList;
 
 
 //    SharedPreferences appProfile = getApplication().getSharedPreferences("Profile", 0);
@@ -45,9 +53,8 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        setupActionBar();
-
-      //  populateProfile();
+        client = TwitterApplication.getTwitterClient();
+        populateProfile();
     }
 
 
@@ -62,7 +69,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case (R.id.miCompose):
-               // launchComposeView();
+                launchComposeView();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -70,27 +77,95 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
 
-    private void setupActionBar() {
+    private void launchComposeView3() {
+        Toast.makeText(getApplicationContext(), "Hola", Toast.LENGTH_SHORT).show();
+    }
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.str_home);
-        actionBar.setIcon(R.drawable.twittericon); // TODO: Fix, icon looks HUGE
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        actionBar.show();
+    private void launchComposeView() {
+       // Intent i = new Intent(this.getContext(), ComposeActivity.class);
+        Intent i = new Intent(getApplicationContext(), ComposeActivity.class);
+
+        i.putExtra("code", REQUEST_CODE);
+        i.putExtra("username", usrProf.getName());
+        i.putExtra("screenname", usrProf.getScreenName());
+        i.putExtra("url", usrProf.getProfileImageUrl());
+
+        startActivityForResult(i, REQUEST_CODE);
     }
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //super.onActivityResult(requestCode, resultCode, data);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             // Extract name value from result extras
             String message = data.getExtras().getString("message");
-           // onComposeTweet(message);
+            onComposeTweet(message);
         }
     }
+
+    private void onComposeTweet(final String message) {
+        client.composeTweet(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                Log.d("SUCCESS: ", json.toString());
+                displayNewTweets(message);
+                //super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("ERROR: ", errorResponse.toString());
+                // super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        }, message);
+    }
+
+
+
+
+    public void displayNewTweets(String msg) {
+//        aTweets.clear();
+//        aTweets.add(Tweet.fromMsg(msg));
+//        aTweets.notifyDataSetChanged();
+//        lvTweets.notifyAll();
+
+        //  populateTimeline();
+    }
+
+
+    private void populateProfile() {
+
+
+        client.getMyProfile(new JsonHttpResponseHandler() {
+
+            // Success
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
+                //super.onSuccess(statusCode, headers, json);
+
+                Profile p = new Profile(json);
+                usrProf = p;
+
+//                editor.putString("username", p.getName());
+//                editor.putString("screen_name", p.getScreenName());
+//                editor.putString("profile_image_url", p.getProfileImageUrl());
+//                editor.putLong("id", p.getUid());
+
+            }
+
+            // Failure
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("ERROR: ", errorResponse.toString());
+            }
+        });
+    } // end populateProfile
+
+
 
 
 }
