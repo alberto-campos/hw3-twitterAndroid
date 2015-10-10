@@ -5,6 +5,10 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +23,8 @@ import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApplication;
 import com.codepath.apps.restclienttemplate.TwitterClient;
 import com.codepath.apps.restclienttemplate.adapters.TweetsArrayAdapter;
+import com.codepath.apps.restclienttemplate.fragments.HomeTimelineFragment;
+import com.codepath.apps.restclienttemplate.fragments.MentionsTimelineFragment;
 import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
 import com.codepath.apps.restclienttemplate.helper.EndlessScrollListener;
 import com.codepath.apps.restclienttemplate.models.Profile;
@@ -55,6 +61,10 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
         client = TwitterApplication.getTwitterClient();
         populateProfile();
+
+        ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
+        vpPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager()));
+
     }
 
 
@@ -74,11 +84,6 @@ public class TimelineActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-
-    private void launchComposeView3() {
-        Toast.makeText(getApplicationContext(), "Hola", Toast.LENGTH_SHORT).show();
     }
 
     private void launchComposeView() {
@@ -167,5 +172,32 @@ public class TimelineActivity extends AppCompatActivity {
 
 
 
+    public class TweetsPagerAdapter extends FragmentPagerAdapter {
+        private String tabItems[] = {String.valueOf(R.string.timeline), String.valueOf(R.string.mentions)};
+
+        public TweetsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position == 0) {
+                return new HomeTimelineFragment();
+            } else
+            {
+              return new MentionsTimelineFragment();
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return tabItems.length;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tabItems[position];
+        }
+    }
 
 }

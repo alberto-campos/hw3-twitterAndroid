@@ -91,7 +91,7 @@ public class TweetsListFragment extends Fragment {
 
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setTitle(R.string.str_home);
-        actionBar.setIcon(R.drawable.twittericon); // TODO: Fix, icon looks HUGE
+        actionBar.setIcon(R.mipmap.ic_twitter);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
