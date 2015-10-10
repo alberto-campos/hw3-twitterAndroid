@@ -26,12 +26,8 @@ public class HomeTimelineFragment extends TweetsListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         client = TwitterApplication.getTwitterClient();
-
         populateTimeline();
-
-
     }
 
     private void populateTimeline() {

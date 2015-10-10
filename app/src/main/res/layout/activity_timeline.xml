@@ -9,7 +9,7 @@
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:name="com.codepath.apps.restclienttemplate.fragments.HomeTimelineFragment"
+        android:name="com.codepath.apps.restclienttemplate.fragments.MentionsTimelineFragment"
         android:id="@+id/fragment_timeline"
         tools:layout="@layout/fragments_tweet_list" />
 
