@@ -16,11 +16,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterClient;
 import com.codepath.apps.restclienttemplate.activities.ComposeActivity;
+import com.codepath.apps.restclienttemplate.activities.ProfileActivity;
 import com.codepath.apps.restclienttemplate.adapters.TweetsArrayAdapter;
 import com.codepath.apps.restclienttemplate.helper.EndlessScrollListener;
 import com.codepath.apps.restclienttemplate.models.Profile;
@@ -60,10 +63,23 @@ public class TweetsListFragment extends Fragment {
             }
         });
 
+        lvTweets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // TODO: pass the user's id.
+                Intent i = new Intent(getContext(), ProfileActivity.class);
+                i.putExtra("screen_name", "dbykovskyy");
+                startActivity(i);
+            }
+        });
+
       //  setupActionBar();
 
         return v;
     }
+
+
 
     @Override
     public void onCreate( Bundle savedInstanceState) {

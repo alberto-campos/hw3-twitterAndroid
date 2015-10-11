@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,21 +28,36 @@ public class ProfileActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("Retrieving...");
-        setContentView(R.layout.activity_profile);
-        client = TwitterApplication.getTwitterClient();
-        client.getMyProfile(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                user = User.fromJSON(response);
-                // Return the current's user account info
-                getSupportActionBar().setTitle(user.getName());
-                populateProfileHeader(user);
-            }
-        });
 
         // Get the screen name from activity that Launches this
         String screenName = getIntent().getStringExtra("screen_name");
+
+        getSupportActionBar().setTitle("Retrieving...");
+        setContentView(R.layout.activity_profile);
+        client = TwitterApplication.getTwitterClient();
+
+        if (screenName != "") {
+
+            client.getUserTimeline(screenName, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                    user = User.fromJSON(response);
+                    getSupportActionBar().setTitle(user.getName());
+                    populateProfileHeader(user);
+                }
+            });
+        } else {
+            client.getMyProfile(new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    user = User.fromJSON(response);
+                    // Return the current's user account info
+                    getSupportActionBar().setTitle(user.getName());
+                    populateProfileHeader(user);
+                }
+            });
+        }
         if (savedInstanceState == null) {
             // Create the user timeline fragment
             UserTimelineFragment fragmentUserTimeline = UserTimelineFragment.newInstance(screenName);
