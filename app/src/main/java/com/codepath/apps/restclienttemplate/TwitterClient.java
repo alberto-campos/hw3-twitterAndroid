@@ -64,18 +64,38 @@ public class TwitterClient extends OAuthBaseClient {
     }
 
 
-	public void getUserTimeline(AsyncHttpResponseHandler handler) {
-		String apiUrl = getApiUrl("users/show.json");
+//	public void getUserTimeline(AsyncHttpResponseHandler handler) {
+//		String apiUrl = getApiUrl("users/show.json");
+//		// Specify the params
+//		RequestParams params = new RequestParams();
+//		params.put("count", COUNT);
+//		// Execute
+//		getClient().get(apiUrl, params, handler);
+//	}
+
+	public void getStatusesUserHomeTimeline(String screenName, AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/user_timeline.json");
 		// Specify the params
 		RequestParams params = new RequestParams();
 		params.put("count", COUNT);
+		params.put("screen_name", screenName);
+		params.put("user_id", screenName);
 		// Execute
 		getClient().get(apiUrl, params, handler);
 	}
 
+    public void getUserHomeTimeline(String screenName, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/home_timeline.json");
+        // Specify the params
+        RequestParams params = new RequestParams();
+        params.put("count", COUNT);
+        params.put("screen_name", screenName);
+        params.put("user_id", screenName);
+        // Execute
+        getClient().get(apiUrl, params, handler);
+    }
 
 	public void getUserTimeline(String screenName, AsyncHttpResponseHandler handler) {
-		//String apiUrl = getApiUrl("statuses/user_timeline.json");
 		String apiUrl = getApiUrl("users/show.json");
 		// Specify the params
 		RequestParams params = new RequestParams();

@@ -67,11 +67,8 @@ public class TweetsListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                // TODO: pass the user's id.
                 Intent i = new Intent(getContext(), ProfileActivity.class);
-                String a;
-
-                a = tweets.get(position).getUser().getScreenName();
+                String a = tweets.get(position).getUser().getScreenName();
 
                 i.putExtra("screen_name", a);
                 startActivity(i);

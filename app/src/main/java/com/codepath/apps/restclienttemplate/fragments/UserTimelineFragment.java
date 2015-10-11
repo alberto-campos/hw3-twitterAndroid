@@ -19,7 +19,8 @@ public class UserTimelineFragment extends TweetsListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = TwitterApplication.getTwitterClient();
-        populateProfile();
+       // populateProfile();
+        populateTweets();
     }
 
     public static UserTimelineFragment newInstance(String screen_name) {
@@ -31,10 +32,22 @@ public class UserTimelineFragment extends TweetsListFragment {
     }
 
 
+    private void populateTweets() {
+        String screenName = getArguments().getString("screen_name");
+
+        client.getStatusesUserHomeTimeline(screenName, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                addAll(Tweet.fromJSONArray(response));
+            }
+        });
+
+    }
+
     private void populateProfile() {
         String screenName = getArguments().getString("screen_name");
 
-        client.getUserTimeline( new JsonHttpResponseHandler() {
+        client.getUserHomeTimeline(screenName, new JsonHttpResponseHandler() {
 
             // Success
             @Override

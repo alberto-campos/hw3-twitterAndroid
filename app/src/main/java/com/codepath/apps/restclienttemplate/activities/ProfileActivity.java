@@ -37,7 +37,19 @@ public class ProfileActivity extends ActionBarActivity {
         setContentView(R.layout.activity_profile);
         client = TwitterApplication.getTwitterClient();
 
-        if (screenName != "") {
+        if ( (screenName != "") && (screenName != null)) {
+
+//            client.getUserHomeTimeline(screenName, new JsonHttpResponseHandler(){
+//
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                    super.onSuccess(statusCode, headers, response);
+//                    user = User.fromJSON(response);
+//                   getSupportActionBar().setTitle(user.getName());
+//                    populateProfileHeader(user);
+//
+//                }
+//            });
 
             client.getUserTimeline(screenName, new JsonHttpResponseHandler() {
                 @Override
@@ -55,25 +67,15 @@ public class ProfileActivity extends ActionBarActivity {
                 }
             });
         } else {
-
-            client.getUserTimeline (new JsonHttpResponseHandler() {
+            client.getMyProfile(new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     user = User.fromJSON(response);
+                    // Return the current's user account info
                     getSupportActionBar().setTitle(user.getName());
                     populateProfileHeader(user);
                 }
             });
-
-//            client.getMyProfile(new JsonHttpResponseHandler() {
-//                @Override
-//                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                    user = User.fromJSON(response);
-//                    // Return the current's user account info
-//                    getSupportActionBar().setTitle(user.getName());
-//                    populateProfileHeader(user);
-//                }
-//            });
         }
         if (savedInstanceState == null) {
             // Create the user timeline fragment
