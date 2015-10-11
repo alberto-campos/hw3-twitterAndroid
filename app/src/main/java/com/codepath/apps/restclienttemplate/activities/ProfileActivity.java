@@ -18,6 +18,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
@@ -46,17 +47,33 @@ public class ProfileActivity extends ActionBarActivity {
                     getSupportActionBar().setTitle(user.getName());
                     populateProfileHeader(user);
                 }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+
+                    super.onFailure(statusCode, headers, throwable, errorResponse);
+                }
             });
         } else {
-            client.getMyProfile(new JsonHttpResponseHandler() {
+
+            client.getUserTimeline (new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     user = User.fromJSON(response);
-                    // Return the current's user account info
                     getSupportActionBar().setTitle(user.getName());
                     populateProfileHeader(user);
                 }
             });
+
+//            client.getMyProfile(new JsonHttpResponseHandler() {
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                    user = User.fromJSON(response);
+//                    // Return the current's user account info
+//                    getSupportActionBar().setTitle(user.getName());
+//                    populateProfileHeader(user);
+//                }
+//            });
         }
         if (savedInstanceState == null) {
             // Create the user timeline fragment

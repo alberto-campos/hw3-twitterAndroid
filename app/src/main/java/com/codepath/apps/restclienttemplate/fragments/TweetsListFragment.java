@@ -69,7 +69,11 @@ public class TweetsListFragment extends Fragment {
 
                 // TODO: pass the user's id.
                 Intent i = new Intent(getContext(), ProfileActivity.class);
-                i.putExtra("screen_name", "dbykovskyy");
+                String a;
+
+                a = tweets.get(position).getUser().getScreenName();
+
+                i.putExtra("screen_name", a);
                 startActivity(i);
             }
         });
