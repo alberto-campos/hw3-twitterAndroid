@@ -14,6 +14,7 @@ public class User {
     private String tagline;
     private int followersCount;
     private int followingsCount;
+    private int statusesCount;
 
     public String getName() {
         return name;
@@ -43,6 +44,8 @@ public class User {
         return followingsCount;
     }
 
+    public int getStatusesCount() {return statusesCount; }
+
     public static User fromJSON(JSONObject json) {
         User u = new User();
         try {
@@ -53,6 +56,7 @@ public class User {
             u.tagline = json.getString("description");
             u.followersCount = json.getInt("followers_count");
             u.followingsCount = json.getInt("friends_count");
+            u.statusesCount = json.getInt("statuses_count");
         } catch (JSONException e) {
             e.printStackTrace();
 

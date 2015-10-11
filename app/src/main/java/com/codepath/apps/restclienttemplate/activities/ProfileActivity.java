@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 public class ProfileActivity extends ActionBarActivity {
     TwitterClient client;
@@ -56,10 +57,12 @@ public class ProfileActivity extends ActionBarActivity {
         TextView tvTagline = (TextView) findViewById(R.id.tvTagline);
         TextView tvFollowers = (TextView) findViewById(R.id.tvFollowers);
         TextView tvFollowing = (TextView) findViewById(R.id.tvFollowing);
+        TextView tvTweetCount = (TextView) findViewById(R.id.tvTweetsCount);
         ImageView ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
 
         tvName.setText(user.getName());
         tvTagline.setText(user.getTagline());
+        tvTweetCount.setText(user.getStatusesCount() + " tweets");
         tvFollowers.setText(user.getFollowersCount() + " followers");
         tvFollowing.setText(user.getFriendsCount() + " following");
         Picasso.with(this).load(user.getProfileImageUrl()).into(ivProfileImage);
