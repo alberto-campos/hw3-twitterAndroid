@@ -37,12 +37,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TweetsListFragment extends Fragment {
+public abstract class TweetsListFragment extends Fragment {
 
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
     private ListView lvTweets;
 
+    public abstract void customLoadMoreTweets();
 
 
     @Nullable
@@ -58,7 +59,7 @@ public class TweetsListFragment extends Fragment {
         lvTweets.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public boolean onLoadMore(int page, int totalItemsCount) {
-                customLoadMoreTweets(page);
+                customLoadMoreTweets();
                 return true;
             }
         });
@@ -80,8 +81,6 @@ public class TweetsListFragment extends Fragment {
         return v;
     }
 
-
-
     @Override
     public void onCreate( Bundle savedInstanceState) {
 
@@ -94,25 +93,22 @@ public class TweetsListFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    public void customLoadMoreTweets(int page) {
-       // populateTimeline();
-    }
 
     public void addAll(List<Tweet> tweets) {
 
         aTweets.addAll(tweets);
     }
-
-
-    private void setupActionBar() {
-
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionBar.setTitle(R.string.str_home);
-        actionBar.setIcon(R.mipmap.ic_twitter);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        actionBar.show();
-    }
+//
+//
+//    private void setupActionBar() {
+//
+//        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+//        actionBar.setTitle(R.string.str_home);
+//        actionBar.setIcon(R.mipmap.ic_twitter);
+//        actionBar.setDisplayUseLogoEnabled(true);
+//        actionBar.setDisplayShowHomeEnabled(true);
+//        actionBar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+//        actionBar.show();
+//    }
 
 }

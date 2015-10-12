@@ -82,6 +82,12 @@ public class Tweet {
     private String body;
     private long uid; // Unique ID for the tweet
 
+    public static long getMaxId() {
+        return maxId;
+    }
+
+    private static long maxId;
+
     public User getUser() {
         return user;
     }
@@ -139,6 +145,7 @@ public class Tweet {
                 JSONObject tweetJson = jsonArray.getJSONObject(i);
                 Tweet tweet = Tweet.fromJSON(tweetJson);
                 if (tweet != null) {
+                    maxId = tweet.uid;
                     tweets.add(tweet);
                 }
             } catch (JSONException e){

@@ -65,4 +65,8 @@ public class UserTimelineFragment extends TweetsListFragment {
         });
     } // end populateMentionsTimeline
 
+    @Override
+    public void customLoadMoreTweets() {
+        populateTweets();
+    }
 }

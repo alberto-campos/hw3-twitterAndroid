@@ -24,15 +24,27 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class HomeTimelineFragment extends TweetsListFragment {
 
     private TwitterClient client;
+    private long maxId= 1;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = TwitterApplication.getTwitterClient();
+        populateTimeline();
+
+
+
+
+    }
+
+    @Override
+    public void customLoadMoreTweets() {
         populateTimeline();
     }
 
@@ -43,7 +55,12 @@ public class HomeTimelineFragment extends TweetsListFragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 //  aTweets.clear();
-                addAll(Tweet.fromJSONArray(json));
+                 // Get maxId from JSON response
+                ArrayList<Tweet> myTweets = Tweet.fromJSONArray(json);
+                maxId = myTweets.size();
+                maxId = Tweet.getMaxId();
+                addAll(myTweets);
+                // addAll(Tweet.fromJSONArray(json));
                 // aTweets.notifyDataSetChanged();
             }
 
@@ -52,7 +69,7 @@ public class HomeTimelineFragment extends TweetsListFragment {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.d("ERROR: ", errorResponse.toString());
             }
-        });
+        }, maxId);
     } // end populateTimeline
 
 

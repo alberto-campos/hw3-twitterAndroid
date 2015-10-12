@@ -43,4 +43,8 @@ public class MentionsTimelineFragment extends TweetsListFragment {
         });
     } // end populateMentionsTimeline
 
+    @Override
+    public void customLoadMoreTweets() {
+        populateMentionsTimeline();
+    }
 }
