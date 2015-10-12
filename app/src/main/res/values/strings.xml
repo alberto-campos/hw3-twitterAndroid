@@ -16,5 +16,6 @@
     <string name="str_screenname">Screenname</string>
     <string name="str_home">Home</string>
     <string name="str_retrieving">Retrieving...</string>
+    <string name="str_cancel">Cancel</string>
 
 </resources>

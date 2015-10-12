@@ -49,11 +49,12 @@
 
 <LinearLayout
     android:id="@+id/llCounts"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
     android:layout_marginBottom="10dp"
     android:layout_below="@+id/rlUserHeader"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="#55acee">
 
     <TextView
         android:layout_width="wrap_content"

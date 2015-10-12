@@ -56,7 +56,6 @@ public class ComposeActivity extends AppCompatActivity implements Serializable {
 //    }
 
     public void onSubmit(View v) {
-        Toast.makeText(getApplicationContext(), "onSubmit", Toast.LENGTH_SHORT).show();
 
        EditText etMessage = (EditText) findViewById(R.id.etComposeMessage);
         // Prepare data intent
@@ -70,9 +69,9 @@ public class ComposeActivity extends AppCompatActivity implements Serializable {
     }
 
     public void onCancel(View view) {
-        Toast.makeText(getApplicationContext(), "Canceling", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Returning...", Toast.LENGTH_SHORT).show();
         setResult(RESULT_CANCELED);
-        this.finish();
+        finish();
     }
 
 }
