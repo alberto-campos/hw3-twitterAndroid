@@ -33,7 +33,8 @@ public class ProfileActivity extends ActionBarActivity {
         // Get the screen name from activity that Launches this
         String screenName = getIntent().getStringExtra("screen_name");
 
-        getSupportActionBar().setTitle("Retrieving...");
+        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setIcon(R.drawable.twittericon);
         setContentView(R.layout.activity_profile);
         client = TwitterApplication.getTwitterClient();
 
@@ -56,7 +57,7 @@ public class ProfileActivity extends ActionBarActivity {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                     user = User.fromJSON(response);
-                    getSupportActionBar().setTitle(user.getName());
+                    //getSupportActionBar().setTitle(user.getName());
                     populateProfileHeader(user);
                 }
 
@@ -94,6 +95,7 @@ public class ProfileActivity extends ActionBarActivity {
         TextView tvFollowing = (TextView) findViewById(R.id.tvFollowing);
         TextView tvTweetCount = (TextView) findViewById(R.id.tvTweetsCount);
         ImageView ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+        ImageView ivProfileBackground = (ImageView) findViewById(R.id.ivProfileBackground);
 
         tvName.setText(user.getName());
         tvTagline.setText(user.getTagline());
@@ -101,6 +103,7 @@ public class ProfileActivity extends ActionBarActivity {
         tvFollowers.setText(user.getFollowersCount() + " followers");
         tvFollowing.setText(user.getFriendsCount() + " following");
         Picasso.with(this).load(user.getProfileImageUrl()).into(ivProfileImage);
+        Picasso.with(this).load(user.getProfileBannerUrl() + "/mobile_retina").into(ivProfileBackground);
 
     }
 

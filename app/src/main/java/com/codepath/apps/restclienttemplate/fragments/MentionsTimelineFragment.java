@@ -19,7 +19,7 @@ public class MentionsTimelineFragment extends TweetsListFragment {
     private TwitterClient client;
     private long maxId= 1;
     private static final int MAXTWEETS = 200;
-    public static final int COUNT = 25;
+    public static final int COUNT = 50;
     private static int retrievedTweets = 0;
 
 
