@@ -12,9 +12,16 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class MentionsTimelineFragment extends TweetsListFragment {
 
     private TwitterClient client;
+    private long maxId= 1;
+    private static final int MAXTWEETS = 200;
+    public static final int COUNT = 25;
+    private static int retrievedTweets = 0;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,9 +37,19 @@ public class MentionsTimelineFragment extends TweetsListFragment {
             // Success
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                //  aTweets.clear();
-                addAll(Tweet.fromJSONArray(json));
-                // aTweets.notifyDataSetChanged();
+
+              //  addAll(Tweet.fromJSONArray(json));
+                ArrayList<Tweet> myTweets = Tweet.fromJSONArray(json);
+                maxId = Tweet.getMaxId();
+                addAll(myTweets);
+                // Get maximum number of tweets
+                if (myTweets.size() < COUNT) {
+                    retrievedTweets = MAXTWEETS;
+                }
+                else
+                {
+                    retrievedTweets = myTweets.size();
+                }
             }
 
             // Failure
@@ -45,6 +62,8 @@ public class MentionsTimelineFragment extends TweetsListFragment {
 
     @Override
     public void customLoadMoreTweets() {
-        populateMentionsTimeline();
+        if (retrievedTweets < MAXTWEETS) {
+            populateMentionsTimeline();
+        }
     }
 }

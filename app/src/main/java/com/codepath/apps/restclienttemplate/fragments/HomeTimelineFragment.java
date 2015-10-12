@@ -30,6 +30,10 @@ public class HomeTimelineFragment extends TweetsListFragment {
 
     private TwitterClient client;
     private long maxId= 1;
+    private static final int MAXTWEETS = 200;
+    public static final int COUNT = 25;
+    private static int retrievedTweets = 0;
+
 
 
     @Override
@@ -45,7 +49,10 @@ public class HomeTimelineFragment extends TweetsListFragment {
 
     @Override
     public void customLoadMoreTweets() {
-        populateTimeline();
+        if (retrievedTweets < MAXTWEETS)
+        {
+            populateTimeline();
+        }
     }
 
     private void populateTimeline() {
@@ -57,11 +64,17 @@ public class HomeTimelineFragment extends TweetsListFragment {
                 //  aTweets.clear();
                  // Get maxId from JSON response
                 ArrayList<Tweet> myTweets = Tweet.fromJSONArray(json);
-                maxId = myTweets.size();
                 maxId = Tweet.getMaxId();
                 addAll(myTweets);
-                // addAll(Tweet.fromJSONArray(json));
-                // aTweets.notifyDataSetChanged();
+                // Get maximum number of tweets
+                if (myTweets.size() < COUNT) {
+                    retrievedTweets = MAXTWEETS;
+                }
+                else
+                {
+                    retrievedTweets = myTweets.size();
+                }
+
             }
 
             // Failure
