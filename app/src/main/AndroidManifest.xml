@@ -17,7 +17,7 @@
     <application
         android:name=".TwitterApplication"
         android:allowBackup="true"
-        android:theme="@style/Theme.AppCompat.Light" >
+        android:theme="@style/Twitter" >
         <meta-data
             android:name="AA_DB_NAME"
             android:value="RestClient.db" />
@@ -27,15 +27,15 @@
 
         <activity
             android:name=".activities.TimelineActivity"
-            android:icon="@drawable/twitter"
+            android:icon="@drawable/twitterofficial"
             android:label="@string/timeline"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:theme="@style/Twitter" >
         </activity>
         <activity
             android:name=".activities.LoginActivity"
-            android:icon="@mipmap/ic_twitter"
+            android:icon="@drawable/twitterofficial"
             android:label="@string/login_page"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:theme="@style/Twitter" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

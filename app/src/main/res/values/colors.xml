@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="windowBackground">#ffffff</color>
+    <color name="background_material_light">#55acee</color>
+    <color name="primary_material_dark">#55acee</color>
+    <color name="primary_dark_material_dark">#ffffff</color>
+    <color name="accent_material_light">#0040ff</color>
+    <color name="statusBarColor">#55acee</color>
+    <color name="black">#55acee</color>
+    <color name="primary_text_material_light">#ffffff</color>
+    <color name="foreground_material_light">#ffffff</color>
+    <color name="primary_text_default_material_light">#ffffff</color>
+    <color name="primary_text_default_material_dark">#ffffff</color>
+    <color name="primary_text_material_dark">#ffffff</color>
+    <color name="secondary_text_material_light">#ffffff</color>
+</resources>
