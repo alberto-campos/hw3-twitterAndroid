@@ -116,15 +116,23 @@ public class Tweet {
         // Extract the values from JSON
         try {
             tweet.body = jsonObject.getString("text");
+            if ((tweet.body).startsWith("RT @")) {
+                String userId = thatUserFromBody();
+            }
             tweet.uid = jsonObject.getLong("id");
             tweet.createdAt = jsonObject.getString("created_at");
             tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         // Return the tweet object
         return tweet;
+    }
+
+    private static String thatUserFromBody() {
+        return "";
     }
 
 

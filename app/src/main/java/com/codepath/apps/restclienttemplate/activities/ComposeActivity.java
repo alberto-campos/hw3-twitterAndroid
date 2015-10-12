@@ -69,7 +69,7 @@ public class ComposeActivity extends AppCompatActivity implements Serializable {
     }
 
     public void onCancel(View view) {
-        Toast.makeText(getApplicationContext(), "Returning...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Canceled...", Toast.LENGTH_SHORT).show();
         setResult(RESULT_CANCELED);
         finish();
     }
